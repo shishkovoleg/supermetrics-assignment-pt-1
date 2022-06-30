@@ -12,6 +12,7 @@ use Statistics\Enum\StatsEnum;
 use SocialPost\Dto\SocialPostTo;
 use Statistics\Dto\StatisticsTo;
 use Tests\Factories\StatisticsToFactory;
+use Tests\Factories\SocialPostToFactory;
 
 /**
  * Since I had to write implementation details of NoopCalculator,
@@ -112,16 +113,11 @@ class NoopCalculatorTest extends TestCase
      */
     private function getPostCollection(): array
     {
-        $post1 = new SocialPostTo();
-        $post1->setAuthorId(self::USER_1);
-
-        $post2 = new SocialPostTo();
-        $post2->setAuthorId(self::USER_1);
-
-        $post3 = new SocialPostTo();
-        $post3->setAuthorId(self::USER_2);
-
-        return [$post1, $post2, $post3];
+        return [
+            SocialPostToFactory::make(self::USER_1),
+            SocialPostToFactory::make(self::USER_1),
+            SocialPostToFactory::make(self::USER_2),
+        ];
     }
 
     /**
