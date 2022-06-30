@@ -90,19 +90,11 @@ class NoopCalculatorTest extends TestCase
      */
     private function getOutOfRangePostCollection(): array
     {
-        $post1 = new SocialPostTo();
-        $post1->setAuthorId(self::USER_1);
-        $post1->setDate(new DateTime('2022-01-03'));
-
-        $post2 = new SocialPostTo();
-        $post2->setAuthorId(self::USER_1);
-        $post2->setDate(new DateTime('2022-02-04'));
-
-        $post3 = new SocialPostTo();
-        $post3->setAuthorId(self::USER_2);
-        $post3->setDate(new DateTime('2022-04-07'));
-
-        return [$post1, $post2, $post3];
+        return [
+            SocialPostToFactory::makeWithDate(self::USER_1, '2022-01-03'),
+            SocialPostToFactory::makeWithDate(self::USER_1, '2022-02-04'),
+            SocialPostToFactory::makeWithDate(self::USER_2, '2022-04-07'),
+        ];
     }
 
     /**
