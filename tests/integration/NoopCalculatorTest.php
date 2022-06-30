@@ -13,6 +13,7 @@ use Statistics\Dto\StatisticsTo;
 use Statistics\Enum\StatsEnum;
 use Tests\Factories\SocialPostToFactory;
 use Tests\Factories\StatisticsToFactory;
+use Tests\Factories\ParamsToFactory;
 
 /**
  * Here we do similar work as in Tests\unit\NoopCalculatorTest class.
@@ -72,12 +73,7 @@ class NoopCalculatorTest extends TestCase
 
     private function buildParams(): ParamsTo
     {
-        $params = new ParamsTo();
-        $params->setStatName(StatsEnum::AVERAGE_POST_NUMBER_PER_USER);
-        $params->setStartDate(new DateTime('2022-06-01'));
-        $params->setEndDate(new DateTime('2022-06-30'));
-
-        return $params;
+        return ParamsToFactory::makeWithRange('2022-06-01', '2022-06-30');
     }
 
     private function getEmptyExpectedResult(): StatisticsTo

@@ -13,6 +13,7 @@ use SocialPost\Dto\SocialPostTo;
 use Statistics\Dto\StatisticsTo;
 use Tests\Factories\StatisticsToFactory;
 use Tests\Factories\SocialPostToFactory;
+use Tests\Factories\ParamsToFactory;
 
 /**
  * Since I had to write implementation details of NoopCalculator,
@@ -82,10 +83,7 @@ class NoopCalculatorTest extends TestCase
 
     private function buildParams(): ParamsTo
     {
-        $params = new ParamsTo();
-        $params->setStatName(StatsEnum::AVERAGE_POST_NUMBER_PER_USER);
-
-        return $params;
+        return ParamsToFactory::make();
     }
 
     private function getEmptyExpectedResult(): StatisticsTo
