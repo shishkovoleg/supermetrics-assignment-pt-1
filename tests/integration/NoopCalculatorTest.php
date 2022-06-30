@@ -11,6 +11,7 @@ use Statistics\Calculator\NoopCalculator;
 use Statistics\Dto\ParamsTo;
 use Statistics\Dto\StatisticsTo;
 use Statistics\Enum\StatsEnum;
+use Tests\Factories\StatisticsToFactory;
 
 /**
  * Here we do similar work as in Tests\unit\NoopCalculatorTest class.
@@ -28,7 +29,6 @@ use Statistics\Enum\StatsEnum;
  * */
 class NoopCalculatorTest extends TestCase
 {
-    private const UNITS = 'posts';
     private const USER_1 = 'user_1';
     private const USER_2 = 'user_2';
 
@@ -79,18 +79,9 @@ class NoopCalculatorTest extends TestCase
         return $params;
     }
 
-    private function makeStatisticsTo(): StatisticsTo
-    {
-        $stats = new StatisticsTo();
-        $stats->setName(StatsEnum::AVERAGE_POST_NUMBER_PER_USER);
-        $stats->setUnits(self::UNITS);
-
-        return $stats;
-    }
-
     private function getEmptyExpectedResult(): StatisticsTo
     {
-        return $this->makeStatisticsTo();
+        return StatisticsToFactory::make();
     }
 
     /**
@@ -135,15 +126,15 @@ class NoopCalculatorTest extends TestCase
 
     private function getInRangeExpectedResult(): StatisticsTo
     {
-        $expectedByUser1 = $this->makeStatisticsTo()
+        $expectedByUser1 = StatisticsToFactory::make()
             ->setSplitPeriod(self::USER_1)
             ->setValue(2);
 
-        $expectedByUser2 = $this->makeStatisticsTo()
+        $expectedByUser2 = StatisticsToFactory::make()
             ->setSplitPeriod(self::USER_2)
             ->setValue(1);
 
-        return $this->makeStatisticsTo()
+        return StatisticsToFactory::make()
             ->addChild($expectedByUser1)
             ->addChild($expectedByUser2);
     }

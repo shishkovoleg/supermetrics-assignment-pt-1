@@ -11,6 +11,7 @@ use Statistics\Dto\ParamsTo;
 use Statistics\Enum\StatsEnum;
 use SocialPost\Dto\SocialPostTo;
 use Statistics\Dto\StatisticsTo;
+use Tests\Factories\StatisticsToFactory;
 
 /**
  * Since I had to write implementation details of NoopCalculator,
@@ -37,7 +38,6 @@ use Statistics\Dto\StatisticsTo;
  * */
 class NoopCalculatorTest extends TestCase
 {
-    private const UNITS = 'posts';
     private const USER_1 = 'user_1';
     private const USER_2 = 'user_2';
 
@@ -89,31 +89,22 @@ class NoopCalculatorTest extends TestCase
 
     private function getEmptyExpectedResult(): StatisticsTo
     {
-        return $this->makeStatisticsTo();
+        return StatisticsToFactory::make();
     }
 
     private function getExpectedResult(): StatisticsTo
     {
-        $expectedByUser1 = $this->makeStatisticsTo()
+        $expectedByUser1 = StatisticsToFactory::make()
             ->setSplitPeriod(self::USER_1)
             ->setValue(2);
 
-        $expectedByUser2 = $this->makeStatisticsTo()
+        $expectedByUser2 = StatisticsToFactory::make()
             ->setSplitPeriod(self::USER_2)
             ->setValue(1);
 
-        return $this->makeStatisticsTo()
+        return StatisticsToFactory::make()
             ->addChild($expectedByUser1)
             ->addChild($expectedByUser2);
-    }
-
-    private function makeStatisticsTo(): StatisticsTo
-    {
-        $stats = new StatisticsTo();
-        $stats->setName(StatsEnum::AVERAGE_POST_NUMBER_PER_USER);
-        $stats->setUnits(self::UNITS);
-
-        return $stats;
     }
 
     /**
